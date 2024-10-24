@@ -1,5 +1,5 @@
 package com.example.demo;
-
+import java.util.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,17 +21,17 @@ public class DemoApplication {
 	@GetMapping("/hello")
 	public String hello(@RequestParam(value = "q") int q) {
 		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("w");
 		String formattedDateTime = now.format(formatter);
 
 		return String.format("Number that you want to response: %d. Current time: %s", q, formattedDateTime);
 	}
 
 	@GetMapping("/number")
-	public float getNumbers(@RequestParam(value = "n") int n) {
+	public int getNumbers(@RequestParam(value = "n") int n) {
 		Random random = new Random();
 		float number = 0;
-        float result = random.nextFloat(0.1F,1) + number;
+		int result = random.nextInt(500) ;
 		return result;
 	}
 
@@ -50,16 +50,44 @@ public class DemoApplication {
 		return prev2;
 	}
 
-	@GetMapping("/loop")
-	public int loop() {
-		int n = 10;
-		int j = 0;
 
-		for (int i = 0; i < n; i++) {
-			j = i;
-			System.out.println(i);
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public class InputToString {
+		public static void main(String[] args) {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Введите значение: ");
+			String input = scanner.nextLine();
+			System.out.println("Введенное значение: " + input);
+			scanner.close();
 		}
-
-		return j;
 	}
+
+
+
+
+	@GetMapping("/power")
+	public int power(@RequestParam(value = "n")int n){
+		int result = 1;
+		for (int i = 0; i < n; i++){
+			result = result * 2;
+		}
+		return result;
+	}
+
+
+
+
+
 }
